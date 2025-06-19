@@ -1,0 +1,5 @@
+{
+  "templates": {
+    "viet_doan_van": "Viết đoạn văn về {chủ_đề} bằng phong cách {phong_cách}\n\n"
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "templates": {
-    "task1": "Viết đoạn code Python thực hiện {task} với input {input_data}\n",
-    "task2": "\n"
-  }
-}
