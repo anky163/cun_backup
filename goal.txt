@@ -1,0 +1,1 @@
+echo "Viết tool quản lý note. Cấu hình cách lưu file. Kiểm tra đầu ra." > goal.txt
