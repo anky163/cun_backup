@@ -1,6 +1,7 @@
 # trie.py - Trie đơn giản hỗ trợ phản xạ đa hồi đáp (multi-response)
 
 import random
+import re
 
 class TrieNode:
     def __init__(self):
@@ -12,8 +13,9 @@ class Trie:
         self.root = TrieNode()
 
     def insert(self, key, value):
+        key = self.clean(key)  # ⚠️ fix lỗi space/thừa
         node = self.root
-        for char in key.lower():
+        for char in key:
             if char not in node.children:
                 node.children[char] = TrieNode()
             node = node.children[char]
@@ -24,8 +26,9 @@ class Trie:
             node.value = [value]
 
     def get(self, key):
+        key = self.clean(key)  # đồng nhất với insert
         node = self.root
-        for char in key.lower():
+        for char in key:
             if char not in node.children:
                 return None
             node = node.children[char]
@@ -54,3 +57,23 @@ class Trie:
                     _load(child, sub)
         if data:
             _load(self.root, data)
+
+    @staticmethod
+    def clean(text):
+        text = text.strip()
+        text = re.sub(r"\s+", " ", text)
+        return text.lower()
+    
+    def dump_all_prompts(self):
+        results = []
+
+        def dfs(node, path):
+            if node.value:
+                full_prompt = ''.join(path)
+                results.append((full_prompt, node.value))
+            for char, child in node.children.items():
+                dfs(child, path + [char])
+
+        dfs(self.root, [])
+        return results
+
